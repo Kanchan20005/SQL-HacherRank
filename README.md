@@ -6,20 +6,20 @@ This is a repo to track my Solutions and Certification for SQL in HackerRank.
 # Advanced
 <p>
 <img src="https://github.com/Kanchan20005/SQL-HacherRank/blob/master/sql_advanced%20certificate-1.png" align="left"
-     alt="Mage-ai" width=100% height=100%>
+     alt="Advanced SQL" width=100% height=100%>
 </p>
 <br>
 
 # Intermediate
 <p>
 <img src="https://github.com/Kanchan20005/SQL-HacherRank/blob/master/sql_intermediate%20certificate-1.png" align="left"
-     alt="Mage-ai" width="1600" height="800">
+     alt="Intermediate SQL" width=100% height=100%>
 </p>
 <br>
 
 # Basic
 <p>
 <img src="https://github.com/Kanchan20005/SQL-HacherRank/blob/master/sql_basic%20certificate-1.png" align="left"
-     alt="Mage-ai" width="1600" height="800">
+     alt="Basic SQL" width=100% height=100%>
 </p>
 <br>

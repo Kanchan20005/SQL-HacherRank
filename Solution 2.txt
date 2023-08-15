@@ -1,0 +1,13 @@
+SOLUTION
+
+SELECT ROUND(D.lat_n, 4)
+FROM 
+(SELECT row_number() OVER(order by lat_n ASC) AS row_num, lat_n FROM STATION S) D
+WHERE
+D.row_num = (SELECT ROUND(COUNT(*)/2) FROM STATION);
+
+
+
+TRIAL Queries
+
+SELECT row_number() OVER(order by lat_n ASC) AS row_num, lat_n FROM STATION S

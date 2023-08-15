@@ -1,0 +1,71 @@
+Correct Solution
+
+SELECT C.company_code, C.founder,ld_mgr,sr_mgr_count,mgr_count, emp_count  FROM 
+Company C
+JOIN
+(SELECT E.company_code,  emp_count, mgr_count, sr_mgr_count, ld_mgr FROM
+(SELECT count(DISTINCT employee_code) AS emp_count, company_code
+FROM Employee
+GROUP BY company_code) E
+JOIN
+(SELECT count(DISTINCT manager_code ) AS mgr_count, company_code
+FROM Employee
+GROUP BY company_code) M ON E.company_code = M.company_code
+JOIN
+(SELECT count(DISTINCT senior_manager_code) AS sr_mgr_count, company_code
+FROM Employee
+GROUP BY company_code) SM ON SM.company_code = M.company_code
+JOIN
+(SELECT count(DISTINCT lead_manager_code) AS ld_mgr, company_code
+FROM Employee
+GROUP BY company_code) LMC ON LMC.company_code = M.company_code) AL
+ON
+AL.company_code = C.company_code
+ORDER BY C.company_code ASC;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Trial Queries
+
+
+
+SELECT C.company_code, C.founder, LM.lead_num 
+FROM Company C,
+(SELECT COUNT(company_code) AS lead_num, company_code FROM Lead_Manager) LM
+where LM.company_code = C.company_name
+;
+
+SELECT * FROM 
+Company RIGHT JOIN
+Employee ON Company.company_code = Employee.company_code;
+
+
+SELECT count(employee_code) AS emp_count, company_code
+FROM Employee
+GROUP BY company_code;
+
+SELECT count(manager_code ) AS mgr_count, company_code
+FROM Employee
+GROUP BY company_code;
+
+SELECT count(senior_manager_code) AS sr_mgr_count, company_code
+FROM Employee
+GROUP BY company_code;
+
+
+SELECT count(lead_manager_code) AS ld_mgr, company_code
+FROM Employee
+GROUP BY company_code;

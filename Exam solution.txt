@@ -1,0 +1,47 @@
+Solution
+/*
+Enter your query below.
+Please append a semicolon ";" at the end of the query
+*/
+SELECT FINA.Mon, MAX(FINA.Ma), MIN(FINA.Mi), ROUND(AVG(FINA.Ave)) FROM
+(SELECT MINIM.id, MINIM.Mon,Mi,Ma,Ave FROM
+(SELECT  id, MONTH(T.record_date) AS Mon, T.data_type AS mini,  T.data_value  as Mi FROM (SELECT row_number() OVER (ORDER BY record_date, data_type) AS id,record_date,data_type,data_value FROM temperature_records WHERE data_type = 'min') T ) MINIM
+LEFT JOIN
+(SELECT  id, MONTH(TM.record_date) AS Mon, TM.data_type AS maxi,  TM.data_value AS Ma  FROM (SELECT row_number() OVER (ORDER BY record_date, data_type) AS id,record_date,data_type,data_value FROM temperature_records WHERE data_type = 'max') TM ) MAXIM
+ON MINIM.id = MAXIM.id
+LEFT JOIN
+(SELECT  id, MONTH(AV.record_date) AS Mon, AV.data_type AS AV,  AV.data_value AS Ave FROM (SELECT row_number() OVER (ORDER BY record_date, data_type) AS id,record_date,data_type,data_value FROM temperature_records WHERE data_type = 'avg') AV) AVRGE
+ON MAXIM.id = AVRGE.id  ) FINA
+
+GROUP BY Mon;
+
+
+SELECT  MONTH(record_date) AS Mon, IF(data_type = 'max', 'max', Null) AS Maxi,  data_value  FROM temperature_records WHERE data_type = 'max';
+
+SELECT  MONTH(record_date) AS Mon, IF(data_type = 'avg', 'avg', Null) AS ave,  data_value  FROM temperature_records WHERE data_type = 'avg';
+
+SELECT  MONTH(record_date) AS Mon, IF(data_type = 'min', 'min', Null) AS mini,  data_value  FROM temperature_records WHERE data_type = 'min';
+
+
+EXAM 2
+
+SELECT event_id, participant_name, max(score) 
+FROM scoretable 
+GROUP BY event_id, participant_name
+ORDER BY event_id, max(score) DESC
+
+;
+
+
+SELECT T2.event_id,ST.participant_name, T2.FIRSTR FROM 
+(SELECT DISTINCT T1.event_id, max(score) AS FIRSTR
+FROM
+(SELECT event_id, participant_name, max(score) AS score 
+FROM scoretable 
+GROUP BY event_id, participant_name
+ORDER BY event_id, max(score) DESC) T1
+GROUP BY T1.event_id) T2
+LEFT JOIN
+scoretable ST
+ON T2.event_id = ST.event_id AND T2.FIRSTR = ST.score
+;

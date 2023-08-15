@@ -16,32 +16,12 @@ ON MAXIM.id = AVRGE.id  ) FINA
 GROUP BY Mon;
 
 
+Trial Code
+
+
 SELECT  MONTH(record_date) AS Mon, IF(data_type = 'max', 'max', Null) AS Maxi,  data_value  FROM temperature_records WHERE data_type = 'max';
 
 SELECT  MONTH(record_date) AS Mon, IF(data_type = 'avg', 'avg', Null) AS ave,  data_value  FROM temperature_records WHERE data_type = 'avg';
 
 SELECT  MONTH(record_date) AS Mon, IF(data_type = 'min', 'min', Null) AS mini,  data_value  FROM temperature_records WHERE data_type = 'min';
 
-
-EXAM 2
-
-SELECT event_id, participant_name, max(score) 
-FROM scoretable 
-GROUP BY event_id, participant_name
-ORDER BY event_id, max(score) DESC
-
-;
-
-
-SELECT T2.event_id,ST.participant_name, T2.FIRSTR FROM 
-(SELECT DISTINCT T1.event_id, max(score) AS FIRSTR
-FROM
-(SELECT event_id, participant_name, max(score) AS score 
-FROM scoretable 
-GROUP BY event_id, participant_name
-ORDER BY event_id, max(score) DESC) T1
-GROUP BY T1.event_id) T2
-LEFT JOIN
-scoretable ST
-ON T2.event_id = ST.event_id AND T2.FIRSTR = ST.score
-;
